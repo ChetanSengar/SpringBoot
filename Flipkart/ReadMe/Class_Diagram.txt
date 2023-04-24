@@ -1,0 +1,84 @@
+   Here's a simple text-based class diagram for the classes we implemented:
+   
+   +----------------+           +--------------+
+   |     User       |           |     Post     |
+   +----------------+           +--------------+
+   | -username      |     1  -> | -id          |
+   | -password      |           | -user        |
+   | -following     |           | -content     |
+   +----------------+           | -timestamp   |
+                                 | -comments    |
+                                 | -upvotes     |
+                                 | -downvotes   |
+                                 +--------------+
+                                       |
+                                       | 1
+                                       v
+                                 +--------------+
+                                 |   Comment    |
+                                 +--------------+
+                                 | -id          |
+                                 | -user        |
+                                 | -content     |
+                                 | -timestamp   |
+                                 | -replies     |
+                                 | -upvotes     |
+                                 | -downvotes   |
+                                 +--------------+
+
+In this class diagram, the User class is connected to the Post class in a one-to-many relationship, and the Post class is connected to the Comment class in a one-to-many relationship as well. Note that the Comment class has a recursive relationship with itself to represent replies to comments.
+This diagram does not cover other classes like SocialNetwork, SocialNetworkApp, InMemoryDatabase, and TimeFormatter, as they are utility or main application classes and not part of the core class hierarchy.
+________________________________________________________________________________________________________
+
+For to include all the class, we can use below: 
+   +----------------+           +--------------+
+   |     User       |           |     Post     |
+   +----------------+           +--------------+
+   | -username      |     1  -> | -id          |
+   | -password      |           | -user        |
+   | -following     |           | -content     |
+   +----------------+           | -timestamp   |
+                                 | -comments    |
+                                 | -upvotes     |
+                                 | -downvotes   |
+                                 +--------------+
+                                       |
+                                       | 1
+                                       v
+                                 +--------------+
+                                 |   Comment    |
+                                 +--------------+
+                                 | -id          |
+                                 | -user        |
+                                 | -content     |
+                                 | -timestamp   |
+                                 | -replies     |
+                                 | -upvotes     |
+                                 | -downvotes   |
+                                 +--------------+
+                                         ^
+                                         |
+                                         |
+   +------------------+           +------+------+---+
+   |  SocialNetwork   |           | InMemoryDatabase |
+   +------------------+           +-----------------+
+   | -users           |           | -users           |
+   | -posts           |           | -posts           |
+   | -comments        |           | -comments        |
+   +------------------+           +-----------------+
+          ^
+          |
+          |
+   +------+------+---+
+   | SocialNetworkApp |
+   +-----------------+
+   | -loggedInUser   |
+   +-----------------+
+
+   +----------------+
+   | TimeFormatter  |
+   +----------------+
+
+In this updated diagram, the SocialNetwork and InMemoryDatabase classes are connected to the core class hierarchy, with SocialNetwork managing the User, Post, and Comment objects, and InMemoryDatabase storing the data for these objects. SocialNetworkApp is the main application class that interacts with SocialNetwork, and TimeFormatter is a utility class used for formatting timestamps. Note that the arrows represent class interactions and not strict relationships like inheritance or aggregation.
+________________________________________________________________________________________________________
+

@@ -1,0 +1,61 @@
+If you were to design a schema for the classes in the form of a relational database, it could look like this:
+################################################################################################
+users table:
+
+username (VARCHAR, PRIMARY KEY)
+password (VARCHAR)
+following table (junction table for many-to-many relationships between users):
+
+follower_username (VARCHAR, FOREIGN KEY referencing users.username)
+following_username (VARCHAR, FOREIGN KEY referencing users.username)
+posts table:
+
+id (INT, PRIMARY KEY)
+user_username (VARCHAR, FOREIGN KEY referencing users.username)
+content (TEXT)
+timestamp (DATETIME)
+upvotes (INT)
+downvotes (INT)
+comments table:
+
+id (INT, PRIMARY KEY)
+user_username (VARCHAR, FOREIGN KEY referencing users.username)
+content (TEXT)
+timestamp (DATETIME)
+post_id (INT, FOREIGN KEY referencing posts.id)
+parent_comment_id (INT, FOREIGN KEY referencing comments.id, NULLABLE)
+upvotes (INT)
+downvotes (INT)
+################################################################################################
+This schema represents the relationships between the classes in a relational database. The users table stores the user information, while the following table is a junction table to establish many-to-many relationships between users. The posts table stores the posts, and the comments table stores the comments and their relationships to both parent comments and the posts they belong to.
+________________________________________________________________________________________________________
+
+Unfortunately, it is not possible to represent a database schema design using just '|' and '_' characters like the class diagram. The database schema design is typically represented using a diagramming notation such as the Entity-Relationship (ER) diagram or the Unified Modeling Language (UML) class diagram.
+
+However, I can provide a textual representation of the schema design using a format like this:
+
+Users (
+  username VARCHAR(255) NOT NULL PRIMARY KEY,
+  password VARCHAR(255) NOT NULL
+)
+
+Posts (
+  id VARCHAR(255) NOT NULL PRIMARY KEY,
+  user_username VARCHAR(255) NOT NULL REFERENCES Users(username),
+  content TEXT NOT NULL,
+  timestamp DATETIME NOT NULL,
+  upvotes INT NOT NULL,
+  downvotes INT NOT NULL
+)
+
+Comments (
+  id VARCHAR(255) NOT NULL PRIMARY KEY,
+  user_username VARCHAR(255) NOT NULL REFERENCES Users(username),
+  content TEXT NOT NULL,
+  timestamp DATETIME NOT NULL,
+  post_id VARCHAR(255) REFERENCES Posts(id),
+  parent_comment_id VARCHAR(255) REFERENCES Comments(id),
+  upvotes INT NOT NULL,
+  downvotes INT NOT NULL
+)
+This is a textual representation of the SQL statements used to create the three tables in the schema design.
